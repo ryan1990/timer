@@ -17,24 +17,22 @@ class Stopwatch extends React.Component {
 
   // put in constructor as this.state?
   state = {
-    status: false, // can be "unstarted", "running", or "paused"
+    status: "unstarted", // can be "unstarted", "running", or "paused"
     completeButtonDisabled: true,
     runningTime: 0
   };
 
   handleClick = () => {
     this.setState(state => {
-      if (state.status) {
+      if (state.status == "running") {
         clearInterval(this.timer);
-      } else { // starting the clock running from zero or from pause
-        // // enable completeButtonDisabled if disabled
-        // if (state.completeButtonDisabled) {
-        //   this.setState({completeButtonDisabled: !state.completeButtonDisabled});
-        // }
+        this.setState({status: "paused"});
+      } else {
         const startTime = Date.now() - this.state.runningTime;
         this.timer = setInterval(() => {
           this.setState({ runningTime: Date.now() - startTime });
         }, 1000);
+        this.setState({status: "running"});
       }
       return { status: !state.status };
     });
@@ -63,7 +61,7 @@ class Stopwatch extends React.Component {
         <Text>MM:SS</Text>
         <Text>{this.convertMsToMinutes(runningTime)}</Text>
         
-        <Button onPress={this.handleClick} title={status ? 'Pause Practice Session' : 'Start New Practice Session'} />
+        <Button onPress={this.handleClick} title={status === 'unstarted' ? 'Start New Practice Session' : status === 'running' ? 'Pause Practice Session' : 'Resume Practice Session'} />
         <Button onPress={this.handleComplete} disabled={this.state.completeButtonDisabled} title="Complete Practice Session" />
       </View>
     );
