@@ -88,7 +88,7 @@ class Stopwatch extends React.Component {
             start: { x: 0, y: 0.5 },
             end: { x: 1, y: 0.5 },
           }}
-          onPress={this.handleStartPause} title={status === 'unstarted' ? '777Start New Practice Session' : status === 'running' ? 'Pause Practice Session' : 'Resume Practice Session'} />
+          onPress={this.handleStartPause} title={status === 'unstarted' ? '88Start New Practice Session' : status === 'running' ? 'Pause Practice Session' : 'Resume Practice Session'} />
         
         <Button onPress={this.handleComplete} disabled={status === 'unstarted'} title="Complete Practice Session" />
       </View>
